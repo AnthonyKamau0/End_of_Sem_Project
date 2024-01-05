@@ -13,14 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES ('$article_title', '$article_full_text', NOW(), NOW(), 1, 1)";
 
     if ($connection->query($sql) === TRUE) {
-        echo "Article inserted successfully!";
+        echo '<div class="alert alert-success" role="alert">';
+        echo 'Article inserted successfully!';
+        echo '</div>';
 
         // Notify administrators by email
         notifyAdministrators($article_title, $article_full_text);
     } else {
-        echo "Error inserting article: " . $connection->error;
+        echo '<div class="alert alert-danger" role="alert">';
+        echo 'Error inserting article: ' . $connection->error;
+        echo '</div>';
     }
-
 }
 
 // Fetch articles from the database
@@ -35,11 +38,12 @@ function notifyAdministrators($title, $fullText) {
     // Send email to each administrator
     sendEmail("$mail_to","$mail_subject","$mail_body");
 }
+
 function sendEmail($mail_to,$mail_subject,$mail_body){
     $cURL_key ='';
     $mail_from ='';
 
-    $curl =curl_init();
+    $curl = curl_init();
 
     curl_setopt_array($curl, array(
         CURLOPT_URL =>"https://api.sendgrid.com/v3/mail/send",
@@ -55,9 +59,7 @@ function sendEmail($mail_to,$mail_subject,$mail_body){
             "cache-control: no-cache",
             "content-type: application/json"
         ),
-
     ));
-
 
     $response = curl_exec($curl);
     $err = curl_error($curl);
@@ -65,9 +67,13 @@ function sendEmail($mail_to,$mail_subject,$mail_body){
     curl_close($curl);
 
     if($err){
-    echo "cURL Error #:" .$err;
-    }else{
+        echo '<div class="alert alert-danger" role="alert">';
+        echo "cURL Error #:" . $err;
+        echo '</div>';
+    } else {
+        echo '<div class="alert alert-info" role="alert">';
         echo $response;
+        echo '</div>';
     }
 }
 ?>
@@ -79,6 +85,19 @@ function sendEmail($mail_to,$mail_subject,$mail_body){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insert Article</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -91,7 +110,6 @@ function sendEmail($mail_to,$mail_subject,$mail_body){
             </article>
         <?php endwhile; ?>
 
-        <!-- Article insertion form with Bootstrap styling -->
         <form action="insert_article.php" method="post">
             <div class="form-group">
                 <label for="article_title">Article Title:</label>
@@ -100,12 +118,17 @@ function sendEmail($mail_to,$mail_subject,$mail_body){
 
             <div class="form-group">
                 <label for="article_full_text">Article Full Text:</label>
-                <input type="text" id="article_full_text" name="article_full_text" class="form-control" required>
+                <textarea id="article_full_text" name="article_full_text" class="form-control" rows="5" required></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Insert Article</button>
         </form>
     </div>
+
+    <div style="background-color: #333; color: #fff; padding: 10px; text-align: center; margin-top: 20px;">
+        &copy; Anthony Kamau 2024
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

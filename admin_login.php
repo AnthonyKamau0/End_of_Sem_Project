@@ -21,15 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             if ($row['user_type'] == 'Admin') {
-                session_start();
                 $_SESSION['user_id'] = $row['userId'];
                 $_SESSION['user_type'] = 'Admin';
                 header('Location: admin_dashboard.php');
                 exit();
             } elseif ($row['user_type'] == 'Super_User') { 
-                session_start();
                 $_SESSION['user_id'] = $row['userId'];
                 $_SESSION['user_type'] = 'Super_User';
+                header('Location: index.php');
+                exit();
+            } elseif ($row['user_type'] == 'Author') { 
+                $_SESSION['user_id'] = $row['userId'];
+                $_SESSION['user_type'] = 'Author';
                 header('Location: index.php');
                 exit();
             } else {
@@ -131,62 +134,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.php">Makala Inc</a>
+    <a class="navbar-brand" href="index.php">Makala Inc</a>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <?php
-                // Display "Logout" if the user is logged in as Super_User
-                if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'Super_User') {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
-                }
-
-                // Display "Super User Login" if the user is not logged in
-                if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Super_User') {
-                    echo '<li class="nav-item"><a class="nav-link" href="index.php">Super User Login</a></li>';
-                }
-
-                // Display "Author Login" if the user is not logged in
-                if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
-                    echo '<li class="nav-item"><a class="nav-link" href="author_login.php">Author Login</a></li>';
-                }
-                ?>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="login-container">
-        <div class="login-card">
-            <h2 class="mb-4">Admin Login</h2>
-
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
             <?php
-            // Display error message if login fails
-            if (isset($_GET['error']) && $_GET['error'] == '1') {
-                echo '<p class="text-danger text-center">Invalid username or password.</p>';
+            // Display "Logout" if the user is logged in as Super_User
+            if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'Super_User') {
+                echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
+            } elseif (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Super_User') {
+                echo '<li class="nav-item"><a class="nav-link" href="index.php">Super User Login</a></li>';
+            }
+
+            // Display "Author Login" if the user is not logged in
+            if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
+                echo '<li class="nav-item"><a class="nav-link" href="author_login.php">Author Login</a></li>';
             }
             ?>
-
-            <form action="admin_login.php" method="post">
-
-                <div class="form-group">
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
-                </div>
-
-                <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                </div>
-            </form>
-        </div>
+        </ul>
     </div>
+</nav>
 
+<div class="login-container">
+    <div class="login-card">
+        <h2 class="mb-4">Admin Login</h2>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <?php
+        // Display error message if login fails
+        if (isset($_GET['error']) && $_GET['error'] == '1') {
+            echo '<p class="text-danger text-center">Invalid username or password.</p>';
+        }
+        ?>
 
+        <form action="admin_login.php" method="post">
+
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div style="background-color: #333; color: #fff; padding: 10px; text-align: center;">
+    &copy; Anthony Kamau 2024
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

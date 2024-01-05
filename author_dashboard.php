@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
-    // Redirect to the login page if not logged in as a Author
+    // Redirect to the login page if not logged in as an Author
     header('Location: author_dashboard.php');
     exit();
 }
@@ -21,7 +21,8 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
@@ -57,6 +58,16 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
             color: #0056b3;
             background-color: #007bff;
         }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -71,6 +82,10 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Author') {
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
+
+    <footer>
+        &copy; Anthony Kamau 2024
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>

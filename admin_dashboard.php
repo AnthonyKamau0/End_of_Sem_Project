@@ -1,10 +1,9 @@
 <?php
-
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Admin') {
-    // Redirect to the login page if not logged in as a Admin
+    // Redirect to the login page if not logged in as an Admin
     header('Location: admin_dashboard.php');
     exit();
 }
@@ -23,7 +22,8 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Admin') {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0; 
         }
 
         .container {
@@ -59,6 +59,16 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Admin') {
             color: #0056b3;
             background-color: #007bff;
         }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -74,7 +84,11 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Admin') {
         </ul>
 
     </div>
-    
+
+    <footer>
+        &copy; Anthony Kamau 2024
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

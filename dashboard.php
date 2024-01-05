@@ -57,12 +57,19 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Super_User') {
             color: #0056b3;
             background-color: #007bff;
         }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-
-
-        
 
     <div class="container">
         <h2>Welcome, Super User!</h2>
@@ -75,7 +82,11 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Super_User') {
         </ul>
 
     </div>
-    
+
+    <footer>
+        &copy; Anthony Kamau 2024
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

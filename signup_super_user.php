@@ -120,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
     </div>
+
+    <div style="background-color: #333; color: #fff; padding: 10px; text-align: center;">
+        &copy; Anthony Kamau 2024
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>

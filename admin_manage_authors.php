@@ -54,9 +54,9 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
                         <td><?= $user['user_name']; ?></td>
                         <td><?= $user['user_type']; ?></td>
                         <td>
-                            <!--Action buttons for update and delete -->
+                            <!-- Action buttons for update and delete -->
                             <a href="admin_edit_author.php?author_id=<?= $user['authorId']; ?>" class="btn btn-primary btn-sm">Update</a>
-                            <a href="admin_process_delete_author.php?author_id=<?= $user['authorId']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                            <button class="btn btn-danger btn-sm" onclick="confirmDelete(<?= $user['authorId']; ?>)">Delete</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -68,9 +68,24 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
             <a href="admin_export_author.php" class="btn btn-info">Export Author</a>
         </div>
     </div>
+
+    <div style="background-color: #333; color: #fff; padding: 10px; text-align: center;">
+        &copy; Anthony Kamau 2024
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to confirm delete action
+        function confirmDelete(authorId) {
+            var result = confirm("Are you sure you want to delete this author?");
+            if (result) {
+                window.location = "admin_process_delete_author.php?author_id=" + authorId;
+            }
+        }
+    </script>
 
 </body>
 </html>

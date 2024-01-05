@@ -1,5 +1,5 @@
 <?php
-require_once('db/connection.php');
+    require_once('db/connection.php');
 ?>
 
 <!DOCTYPE html>
@@ -7,11 +7,13 @@ require_once('db/connection.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>View Articles</title>
+    <title>Admin View Articles</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -30,13 +32,26 @@ require_once('db/connection.php');
             border-top: 1px solid #dee2e6;
         }
 
-        .export-link {
-            margin-bottom: 10px;
-            display: block;
+        .article {
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         .article-text {
             white-space: pre-line;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -47,28 +62,18 @@ require_once('db/connection.php');
 
         <?php
         $db = new Database();
-
-        // Get the database connection
         $connection = $db->getConnection();
 
         if ($connection->ping()) {
-            // Fetch the last 6 articles in descending order by article_created_date
             $sql = "SELECT * FROM articles ORDER BY article_created_date DESC LIMIT 6";
             $result = $connection->query($sql);
 
             if ($result !== false && $result->num_rows > 0) {
-
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="article">';
                     echo '<h3>' . $row['article_title'] . '</h3>';
                     echo '<p class="article-text">' . nl2br($row['article_full_text']) . '</p>';
                     echo '<p>Created on: ' . $row['article_created_date'] . '</p>';
-
-                    // Atext file export link
-                    echo '<a class="export-link" href="author_export_article.php?articleId=' . $row['articleId'] . '&format=text">Export to Text File</a>';
-                    // PDF export link
-                    echo '<a class="export-link" href="author_export_article.php?articleId=' . $row['articleId'] . '&format=pdf">Export to PDF</a>';
-
                     echo '<hr>';
                     echo '</div>';
                 }
@@ -80,6 +85,10 @@ require_once('db/connection.php');
         }
         ?>
 
+    </div>
+
+    <div class="footer">
+        &copy; Anthony Kamau 2024
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

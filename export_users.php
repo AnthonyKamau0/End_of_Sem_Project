@@ -100,7 +100,7 @@ $pdf->Output('user_data.pdf', 'I');
 leave the CSV code open inorder for it to work */
 
 
-// Export as CSV File
+//Export as CSV File
 // $csvContent = "User ID,Full Name,Email\n";
 // foreach ($users as $user) {
 //     $csvContent .= "{$user['userId']},{$user['full_name']},{$user['email']}\n";
