@@ -14,9 +14,9 @@ Enabled the Super_User to update their profile details, manage other users (add,
 
 Implemented a functionality for the Super_User to view the last six posted articles in descending order based on the article creation date.
 
-Introduced an 'Administrator' role with similar functionalities as the Super_User, including the ability to manage authors, view articles, update the profile, and logout.
+Introduced an 'Admin' role with similar functionalities as the Super_User, including the ability to manage authors, view articles, update the profile, and logout.
 
-Defined an 'Author' role with functionalities such as updating the profile, managing articles (add, list, update, delete), 
+Defined an 'Author' role with functionalities such as updating their profile, managing articles (add, list, update, delete), 
 viewing the last six articles in descending order by [article_created_date], and exporting articles to PDF and text file.
 
-Implemented a logout option for both the Super_User and the Author to sign out of the system and return to the index page.
+Implemented a logout option for the Super_User,Admin and the Author to sign out of the system and return to the index page.
